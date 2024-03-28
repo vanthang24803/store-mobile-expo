@@ -1,3 +1,4 @@
+import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
 import { Stack } from 'expo-router';
 
 export const unstable_settings = {
@@ -5,6 +6,13 @@ export const unstable_settings = {
 };
 
 export default function RootLayout() {
+  const [fontsLoaded] = useFonts({
+    Inter_900Black,
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
   return (
     <Stack>
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />

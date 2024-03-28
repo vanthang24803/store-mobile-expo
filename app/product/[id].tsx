@@ -7,6 +7,8 @@ import ProductDetail from '@/components/Detail';
 import Colors from '@/constant/Colors';
 import { Product } from '@/types';
 import api from '@/utils/api';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const screenHeight = Math.round(Dimensions.get('window').height);
 
@@ -36,15 +38,19 @@ const Page = () => {
   }, [id]);
 
   return (
-    <ScrollView style={styles.container}>
-      {loading ? (
-        <View style={styles.loadingContent}>
-          <ActivityIndicator size="large" color={Colors.secondary} />
-        </View>
-      ) : (
-        <>{product && <ProductDetail product={product} />}</>
-      )}
-    </ScrollView>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <BottomSheetModalProvider>
+        <ScrollView style={styles.container}>
+          {loading ? (
+            <View style={styles.loadingContent}>
+              <ActivityIndicator size="large" color={Colors.secondary} />
+            </View>
+          ) : (
+            <>{product && <ProductDetail product={product} />}</>
+          )}
+        </ScrollView>
+      </BottomSheetModalProvider>
+    </GestureHandlerRootView>
   );
 };
 

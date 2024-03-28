@@ -78,5 +78,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
+    fontFamily: 'Inter_900Black',
   },
 });

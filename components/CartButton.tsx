@@ -24,7 +24,7 @@ export default CartButton;
 const styles = StyleSheet.create({
   touch: {
     position: 'absolute',
-    top: '15%',
+    top:  50,
     right: '5%',
     zIndex: 999,
   },

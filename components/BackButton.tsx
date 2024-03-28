@@ -21,7 +21,7 @@ export default BackButton;
 const styles = StyleSheet.create({
   touch: {
     position: 'absolute',
-    top: '15%',
+    top: 50,
     left: '2%',
     zIndex: 999,
   },
