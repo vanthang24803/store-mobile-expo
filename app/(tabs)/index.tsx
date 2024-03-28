@@ -6,9 +6,8 @@ import Appbar from '@/components/Appbar';
 import Slider from '@/components/Carousel';
 import Category from '@/components/Category';
 import Products from '@/components/Products';
-import { billboard } from '@/constant';
 import Colors from '@/constant/Colors';
-import { Product } from '@/types';
+import { Billboard, Product } from '@/types';
 import api from '@/utils/api';
 
 export default function TabOneScreen() {
@@ -16,6 +15,7 @@ export default function TabOneScreen() {
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState<Product[] | null>(null);
   const [refreshing, setRefreshing] = useState(false);
+  const [billboards, setBillboards] = useState<Billboard[] | null>(null);
 
   const onDataChanged = (category: string) => {
     setCategory(category);
@@ -29,10 +29,22 @@ export default function TabOneScreen() {
     }
   };
 
+  const fetchBillboards = async () => {
+    const response = await api.get(`/api/product/billboard`);
+
+    if (response.status === 200) {
+      setBillboards(response.data);
+    }
+  };
+
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     fetchProducts().then(() => setRefreshing(false));
   }, []);
+
+  useEffect(() => {
+    fetchBillboards();
+  });
 
   useEffect(() => {
     try {
@@ -54,7 +66,7 @@ export default function TabOneScreen() {
         <Appbar />
       </View>
       <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
-        <Slider billboards={billboard} />
+        {billboards && <Slider billboards={billboards} />}
         <Category onCategoryChanged={onDataChanged} />
         <Products loading={loading} products={products} />
       </ScrollView>

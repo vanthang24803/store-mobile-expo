@@ -17,7 +17,7 @@ const Card = ({ product }: Props) => {
   const router = useRouter();
 
   return (
-    <TouchableOpacity onPress={() => router.push(`/${product?.id}`)}>
+    <TouchableOpacity onPress={() => router.push(`/product/${product?.id}`)}>
       <View style={styles.container}>
         <Image source={{ uri: product?.thumbnail }} style={styles.image} />
         <Text style={styles.name} numberOfLines={2} ellipsizeMode="tail">
