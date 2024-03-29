@@ -7,6 +7,7 @@ import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import Colors from '@/constant/Colors';
+import useCart from '@/hooks/use-cart';
 import { Option, Product } from '@/types';
 import { formatPrice, price } from '@/utils/format';
 
@@ -40,11 +41,11 @@ export default function BottomDetail({
   };
 
   const [total, setTotal] = useState(1);
+  const cart = useCart();
 
   return (
     <BottomSheet
       enablePanDownToClose
-      index={0}
       ref={bottomSheetRef}
       onChange={handleSheetChanges}
       snapPoints={snapPoints}>
@@ -53,7 +54,6 @@ export default function BottomDetail({
           flex: 1,
           backgroundColor: Colors.white,
           margin: 10,
-          zIndex: 999,
         }}>
         <View
           style={{
@@ -199,7 +199,7 @@ export default function BottomDetail({
 
         <View style={{ flexDirection: 'row', marginTop: 40, gap: 10, marginHorizontal: 10 }}>
           <TouchableOpacity
-            onPress={() => {}}
+            onPress={() => cart.addItem(product, total)}
             style={{
               height: 50,
               width: '50%',
@@ -213,7 +213,7 @@ export default function BottomDetail({
             <Text style={{ fontWeight: 'bold', color: Colors.dark }}>Thêm vào giỏ hàng</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => {}}
+            onPress={() => cart.addItem(product, total)}
             style={{
               height: 50,
               width: '50%',

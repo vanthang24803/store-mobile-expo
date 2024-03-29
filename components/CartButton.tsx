@@ -4,17 +4,21 @@ import { useRouter } from 'expo-router';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import Colors from '@/constant/Colors';
+import useCart from '@/hooks/use-cart';
 
 const CartButton = () => {
   const router = useRouter();
+  const cart = useCart();
   return (
     <TouchableOpacity style={styles.touch} onPress={() => router.push(`/(tabs)/cart`)}>
       <View style={styles.box}>
         <Feather name="shopping-cart" size={20} color="black" />
       </View>
-      <View style={styles.boxTotal}>
-        <Text style={styles.total}>0</Text>
-      </View>
+      {cart.items.length > 0 && (
+        <View style={styles.boxTotal}>
+          <Text style={styles.total}>{cart.totalItems()}</Text>
+        </View>
+      )}
     </TouchableOpacity>
   );
 };
@@ -24,7 +28,7 @@ export default CartButton;
 const styles = StyleSheet.create({
   touch: {
     position: 'absolute',
-    top:  50,
+    top: 50,
     right: '5%',
     zIndex: 999,
   },

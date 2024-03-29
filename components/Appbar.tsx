@@ -7,9 +7,11 @@ import Logo from './Logo';
 import Avatar from './ui/Avatar';
 
 import SearchBar from '@/components/SearchBar';
+import useCart from '@/hooks/use-cart';
 
 const Appbar = () => {
   const router = useRouter();
+  const cart = useCart();
   return (
     <View>
       <View style={styles.main}>
@@ -20,9 +22,11 @@ const Appbar = () => {
         <SearchBar />
         <TouchableOpacity onPress={() => router.push(`/(tabs)/cart`)}>
           <Feather name="shopping-cart" size={24} />
-          <View style={styles.badgeContent}>
-            <Text style={styles.badgeText}>99</Text>
-          </View>
+          {cart.items.length > 0 && (
+            <View style={styles.badgeContent}>
+              <Text style={styles.badgeText}>{cart.totalItems()}</Text>
+            </View>
+          )}
         </TouchableOpacity>
       </View>
     </View>
